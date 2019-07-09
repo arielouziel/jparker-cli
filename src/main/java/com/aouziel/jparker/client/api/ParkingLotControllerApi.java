@@ -57,6 +57,258 @@ public class ParkingLotControllerApi {
     }
 
     /**
+     * Build call for createParkingLotUsingPOST
+     * @param parkingLot parkingLot (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call createParkingLotUsingPOSTCall(ParkingLot parkingLot, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = parkingLot;
+
+        // create path and map variables
+        String localVarPath = "/api/v1/parking-lots";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        final String[] localVarAccepts = {
+            "*/*"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if (progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call createParkingLotUsingPOSTValidateBeforeCall(ParkingLot parkingLot, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'parkingLot' is set
+        if (parkingLot == null) {
+            throw new ApiException("Missing the required parameter 'parkingLot' when calling createParkingLotUsingPOST(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = createParkingLotUsingPOSTCall(parkingLot, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Create a new parking lot
+     * 
+     * @param parkingLot parkingLot (required)
+     * @return ParkingLot
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ParkingLot createParkingLotUsingPOST(ParkingLot parkingLot) throws ApiException {
+        ApiResponse<ParkingLot> resp = createParkingLotUsingPOSTWithHttpInfo(parkingLot);
+        return resp.getData();
+    }
+
+    /**
+     * Create a new parking lot
+     * 
+     * @param parkingLot parkingLot (required)
+     * @return ApiResponse&lt;ParkingLot&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<ParkingLot> createParkingLotUsingPOSTWithHttpInfo(ParkingLot parkingLot) throws ApiException {
+        com.squareup.okhttp.Call call = createParkingLotUsingPOSTValidateBeforeCall(parkingLot, null, null);
+        Type localVarReturnType = new TypeToken<ParkingLot>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Create a new parking lot (asynchronously)
+     * 
+     * @param parkingLot parkingLot (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call createParkingLotUsingPOSTAsync(ParkingLot parkingLot, final ApiCallback<ParkingLot> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = createParkingLotUsingPOSTValidateBeforeCall(parkingLot, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<ParkingLot>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
+     * Build call for createParkingSlotUsingPOST
+     * @param lotId ParkingLot id where to add the slot (required)
+     * @param parkingSlot slot (required)
+     * @param progressListener Progress listener
+     * @param progressRequestListener Progress request listener
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     */
+    public com.squareup.okhttp.Call createParkingSlotUsingPOSTCall(Long lotId, ParkingSlot parkingSlot, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        Object localVarPostBody = parkingSlot;
+
+        // create path and map variables
+        String localVarPath = "/api/v1/parking-lots/{lotId}/slots"
+            .replaceAll("\\{" + "lotId" + "\\}", apiClient.escapeString(lotId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        final String[] localVarAccepts = {
+            "*/*"
+        };
+        final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            "application/json"
+        };
+        final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        if (progressListener != null) {
+            apiClient.getHttpClient().networkInterceptors().add(new com.squareup.okhttp.Interceptor() {
+                @Override
+                public com.squareup.okhttp.Response intercept(com.squareup.okhttp.Interceptor.Chain chain) throws IOException {
+                    com.squareup.okhttp.Response originalResponse = chain.proceed(chain.request());
+                    return originalResponse.newBuilder()
+                    .body(new ProgressResponseBody(originalResponse.body(), progressListener))
+                    .build();
+                }
+            });
+        }
+
+        String[] localVarAuthNames = new String[] {  };
+        return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private com.squareup.okhttp.Call createParkingSlotUsingPOSTValidateBeforeCall(Long lotId, ParkingSlot parkingSlot, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        
+        // verify the required parameter 'lotId' is set
+        if (lotId == null) {
+            throw new ApiException("Missing the required parameter 'lotId' when calling createParkingSlotUsingPOST(Async)");
+        }
+        
+        // verify the required parameter 'parkingSlot' is set
+        if (parkingSlot == null) {
+            throw new ApiException("Missing the required parameter 'parkingSlot' when calling createParkingSlotUsingPOST(Async)");
+        }
+        
+
+        com.squareup.okhttp.Call call = createParkingSlotUsingPOSTCall(lotId, parkingSlot, progressListener, progressRequestListener);
+        return call;
+
+    }
+
+    /**
+     * Create a new slot in a parking lot
+     * 
+     * @param lotId ParkingLot id where to add the slot (required)
+     * @param parkingSlot slot (required)
+     * @return ParkingLot
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ParkingLot createParkingSlotUsingPOST(Long lotId, ParkingSlot parkingSlot) throws ApiException {
+        ApiResponse<ParkingLot> resp = createParkingSlotUsingPOSTWithHttpInfo(lotId, parkingSlot);
+        return resp.getData();
+    }
+
+    /**
+     * Create a new slot in a parking lot
+     * 
+     * @param lotId ParkingLot id where to add the slot (required)
+     * @param parkingSlot slot (required)
+     * @return ApiResponse&lt;ParkingLot&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     */
+    public ApiResponse<ParkingLot> createParkingSlotUsingPOSTWithHttpInfo(Long lotId, ParkingSlot parkingSlot) throws ApiException {
+        com.squareup.okhttp.Call call = createParkingSlotUsingPOSTValidateBeforeCall(lotId, parkingSlot, null, null);
+        Type localVarReturnType = new TypeToken<ParkingLot>(){}.getType();
+        return apiClient.execute(call, localVarReturnType);
+    }
+
+    /**
+     * Create a new slot in a parking lot (asynchronously)
+     * 
+     * @param lotId ParkingLot id where to add the slot (required)
+     * @param parkingSlot slot (required)
+     * @param callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     */
+    public com.squareup.okhttp.Call createParkingSlotUsingPOSTAsync(Long lotId, ParkingSlot parkingSlot, final ApiCallback<ParkingLot> callback) throws ApiException {
+
+        ProgressResponseBody.ProgressListener progressListener = null;
+        ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
+
+        if (callback != null) {
+            progressListener = new ProgressResponseBody.ProgressListener() {
+                @Override
+                public void update(long bytesRead, long contentLength, boolean done) {
+                    callback.onDownloadProgress(bytesRead, contentLength, done);
+                }
+            };
+
+            progressRequestListener = new ProgressRequestBody.ProgressRequestListener() {
+                @Override
+                public void onRequestProgress(long bytesWritten, long contentLength, boolean done) {
+                    callback.onUploadProgress(bytesWritten, contentLength, done);
+                }
+            };
+        }
+
+        com.squareup.okhttp.Call call = createParkingSlotUsingPOSTValidateBeforeCall(lotId, parkingSlot, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<ParkingLot>(){}.getType();
+        apiClient.executeAsync(call, localVarReturnType, callback);
+        return call;
+    }
+    /**
      * Build call for enterParkingLotUsingPOST
      * @param lotId ParkingLot id from which parking slot will be retrieved (required)
      * @param body carPowerType (required)
@@ -556,21 +808,26 @@ public class ParkingLotControllerApi {
     /**
      * Build call for listFreeParkingSlotsUsingGET
      * @param lotId ParkingLot id from which parking slots will be retrieved (required)
+     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
      * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call listFreeParkingSlotsUsingGETCall(Long lotId, String parkingSlotType, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call listFreeParkingSlotsUsingGETCall(Long lotId, String parkingSlotStatus, String parkingSlotType, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = new Object();
 
         // create path and map variables
-        String localVarPath = "/api/v1/parking-lots/{lotId}/free-slots"
+        String localVarPath = "/api/v1/parking-lots/{lotId}/slots"
             .replaceAll("\\{" + "lotId" + "\\}", apiClient.escapeString(lotId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (parkingSlotStatus != null) {
+            localVarQueryParams.addAll(apiClient.parameterToPair("parkingSlotStatus", parkingSlotStatus));
+        }
+
         if (parkingSlotType != null) {
             localVarQueryParams.addAll(apiClient.parameterToPair("parkingSlotType", parkingSlotType));
         }
@@ -608,7 +865,7 @@ public class ParkingLotControllerApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call listFreeParkingSlotsUsingGETValidateBeforeCall(Long lotId, String parkingSlotType, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call listFreeParkingSlotsUsingGETValidateBeforeCall(Long lotId, String parkingSlotStatus, String parkingSlotType, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'lotId' is set
         if (lotId == null) {
@@ -616,7 +873,7 @@ public class ParkingLotControllerApi {
         }
         
 
-        com.squareup.okhttp.Call call = listFreeParkingSlotsUsingGETCall(lotId, parkingSlotType, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = listFreeParkingSlotsUsingGETCall(lotId, parkingSlotStatus, parkingSlotType, progressListener, progressRequestListener);
         return call;
 
     }
@@ -625,12 +882,13 @@ public class ParkingLotControllerApi {
      * Get a list of free slots in a parking lot
      * 
      * @param lotId ParkingLot id from which parking slots will be retrieved (required)
+     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
      * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
      * @return List&lt;ParkingSlot&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<ParkingSlot> listFreeParkingSlotsUsingGET(Long lotId, String parkingSlotType) throws ApiException {
-        ApiResponse<List<ParkingSlot>> resp = listFreeParkingSlotsUsingGETWithHttpInfo(lotId, parkingSlotType);
+    public List<ParkingSlot> listFreeParkingSlotsUsingGET(Long lotId, String parkingSlotStatus, String parkingSlotType) throws ApiException {
+        ApiResponse<List<ParkingSlot>> resp = listFreeParkingSlotsUsingGETWithHttpInfo(lotId, parkingSlotStatus, parkingSlotType);
         return resp.getData();
     }
 
@@ -638,12 +896,13 @@ public class ParkingLotControllerApi {
      * Get a list of free slots in a parking lot
      * 
      * @param lotId ParkingLot id from which parking slots will be retrieved (required)
+     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
      * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
      * @return ApiResponse&lt;List&lt;ParkingSlot&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<List<ParkingSlot>> listFreeParkingSlotsUsingGETWithHttpInfo(Long lotId, String parkingSlotType) throws ApiException {
-        com.squareup.okhttp.Call call = listFreeParkingSlotsUsingGETValidateBeforeCall(lotId, parkingSlotType, null, null);
+    public ApiResponse<List<ParkingSlot>> listFreeParkingSlotsUsingGETWithHttpInfo(Long lotId, String parkingSlotStatus, String parkingSlotType) throws ApiException {
+        com.squareup.okhttp.Call call = listFreeParkingSlotsUsingGETValidateBeforeCall(lotId, parkingSlotStatus, parkingSlotType, null, null);
         Type localVarReturnType = new TypeToken<List<ParkingSlot>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
@@ -652,12 +911,13 @@ public class ParkingLotControllerApi {
      * Get a list of free slots in a parking lot (asynchronously)
      * 
      * @param lotId ParkingLot id from which parking slots will be retrieved (required)
+     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
      * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call listFreeParkingSlotsUsingGETAsync(Long lotId, String parkingSlotType, final ApiCallback<List<ParkingSlot>> callback) throws ApiException {
+    public com.squareup.okhttp.Call listFreeParkingSlotsUsingGETAsync(Long lotId, String parkingSlotStatus, String parkingSlotType, final ApiCallback<List<ParkingSlot>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -678,7 +938,7 @@ public class ParkingLotControllerApi {
             };
         }
 
-        com.squareup.okhttp.Call call = listFreeParkingSlotsUsingGETValidateBeforeCall(lotId, parkingSlotType, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = listFreeParkingSlotsUsingGETValidateBeforeCall(lotId, parkingSlotStatus, parkingSlotType, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<List<ParkingSlot>>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

@@ -35,6 +35,39 @@ public class ParkingLotControllerApiTest {
 
     
     /**
+     * Create a new parking lot
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void createParkingLotUsingPOSTTest() throws ApiException {
+        ParkingLot parkingLot = null;
+        ParkingLot response = api.createParkingLotUsingPOST(parkingLot);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * Create a new slot in a parking lot
+     *
+     * 
+     *
+     * @throws ApiException
+     *          if the Api call fails
+     */
+    @Test
+    public void createParkingSlotUsingPOSTTest() throws ApiException {
+        Long lotId = null;
+        ParkingSlot parkingSlot = null;
+        ParkingLot response = api.createParkingSlotUsingPOST(lotId, parkingSlot);
+
+        // TODO: test validations
+    }
+    
+    /**
      * Put a car in a any free parking slot
      *
      * 
@@ -110,8 +143,9 @@ public class ParkingLotControllerApiTest {
     @Test
     public void listFreeParkingSlotsUsingGETTest() throws ApiException {
         Long lotId = null;
+        String parkingSlotStatus = null;
         String parkingSlotType = null;
-        List<ParkingSlot> response = api.listFreeParkingSlotsUsingGET(lotId, parkingSlotType);
+        List<ParkingSlot> response = api.listFreeParkingSlotsUsingGET(lotId, parkingSlotStatus, parkingSlotType);
 
         // TODO: test validations
     }

@@ -1,1 +1,586 @@
-{"swagger":"2.0","info":{"description":"An Open API for parking lot management","version":"1.0.0","title":"JParker REST API","contact":{"name":"Ariel Ouziel","url":"www.arielouziel.com","email":"contact@arielouziel.com"},"license":{"name":"Apache 2.0","url":"http://www.apache.org/licenses/LICENSE-2.0.html"}},"host":"localhost:8080","basePath":"/","tags":[{"name":"parking-lot-controller","description":"Operations pertaining to parking lots in Parking Lot Management System"}],"paths":{"/api/v1/parking-lots":{"get":{"tags":["parking-lot-controller"],"summary":"View a list of all parking lots","operationId":"getAllParkingLotsUsingGET","produces":["*/*"],"responses":{"200":{"description":"Successfully retrieved list","schema":{"type":"array","items":{"type":"object"}}},"401":{"description":"You are not authorized to view the resource"},"403":{"description":"Accessing the resource you were trying to reach is forbidden"},"404":{"description":"The resource you were trying to reach is not found"}}}},"/api/v1/parking-lots/{lotId}":{"get":{"tags":["parking-lot-controller"],"summary":"Get a parking lot by Id","operationId":"getParkingLotByIdUsingGET","produces":["*/*"],"parameters":[{"name":"lotId","in":"path","description":"ParkingLot id from which parking object will retrieve","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ParkingLot"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/api/v1/parking-lots/{lotId}/free-slots":{"get":{"tags":["parking-lot-controller"],"summary":"Get a list of free slots in a parking lot","operationId":"listFreeParkingSlotsUsingGET","produces":["*/*"],"parameters":[{"name":"lotId","in":"path","description":"ParkingLot id from which parking slots will be retrieved","required":true,"type":"integer","format":"int64"},{"name":"parkingSlotType","in":"query","description":"Specify parking slot type to be used (twentyKw, fiftyKw or sedan)","required":false,"type":"string"}],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/ParkingSlot"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}}}},"/api/v1/parking-lots/{lotId}/slot-uses":{"post":{"tags":["parking-lot-controller"],"summary":"Put a car in a any free parking slot","operationId":"enterParkingLotUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"lotId","in":"path","description":"ParkingLot id from which parking slot will be retrieved","required":true,"type":"integer","format":"int64"},{"in":"body","name":"carPowerType","description":"carPowerType","required":true,"schema":{"type":"string","enum":["twentyKw","fiftyKw","sedan"]}}],"responses":{"200":{"description":"Successfully picked the slot","schema":{"$ref":"#/definitions/ParkingSlotUse"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"},"409":{"description":"Somebody took the slot before you"},"412":{"description":"Preconditions failed"}}}},"/api/v1/parking-lots/{lotId}/slot-uses/{useId}/leave":{"put":{"tags":["parking-lot-controller"],"summary":"Remove car from parking lot and bill the customer","operationId":"leaveParkingLotUsingPUT","consumes":["application/json"],"produces":["*/*"],"parameters":[{"name":"lotId","in":"path","description":"ParkingLot id from which parking slot will be retrieved","required":true,"type":"integer","format":"int64"},{"name":"useId","in":"path","description":"Occupation id provided when entered the parking lot","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"Successfully leaved the parking lot","schema":{"$ref":"#/definitions/ParkingSlotUse"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"},"409":{"description":"Somebody took the slot before you"},"412":{"description":"Preconditions failed"}}}}},"definitions":{"ParkingLot":{"type":"object","properties":{"id":{"type":"integer","format":"int64","description":"The database generated parking lot ID","allowEmptyValue":false},"name":{"type":"string","description":"The name of the parking lot","allowEmptyValue":false},"pricingPolicy":{"$ref":"#/definitions/PricingPolicy"},"slots":{"type":"array","description":"All the slots of the parking lot","allowEmptyValue":false,"items":{"$ref":"#/definitions/ParkingSlot"}}},"title":"ParkingLot","description":"All details about parking lots. "},"ParkingSlot":{"type":"object","properties":{"id":{"type":"integer","format":"int64","description":"The database generated slot ID","allowEmptyValue":false},"location":{"type":"string","description":"The slot location in the parking lot","allowEmptyValue":false},"status":{"type":"string","description":"The status of the parking slot","allowEmptyValue":false,"enum":["free","occupied"]},"type":{"type":"string","description":"The type of the parking slot","allowEmptyValue":false,"enum":["twentyKw","fiftyKw","sedan"]},"version":{"type":"integer","format":"int32"}},"title":"ParkingSlot","description":"All details about parking slots. "},"ParkingSlotUse":{"type":"object","properties":{"carPowerType":{"type":"string","description":"The power type of the car using the slot","allowEmptyValue":false,"enum":["twentyKw","fiftyKw","sedan"]},"currencyCode":{"type":"string","description":"The currency code for billed price","allowEmptyValue":false},"endTime":{"type":"string","format":"date-time","description":"The time when occupation has ended","allowEmptyValue":false},"formattedPrice":{"type":"string","description":"The billed price in human readable format","allowEmptyValue":false},"id":{"type":"integer","format":"int64","description":"The database generated slot occupation item ID","allowEmptyValue":false},"price":{"type":"integer","format":"int32","description":"The billed price for this occupation","allowEmptyValue":false},"slot":{"$ref":"#/definitions/ParkingSlot"},"startTime":{"type":"string","format":"date-time","description":"The time when occupation has started","allowEmptyValue":false}},"title":"ParkingSlotUse"},"PricingPolicy":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"pricingPolicyType":{"type":"string","description":"Type of pricing policy","allowEmptyValue":false}},"title":"PricingPolicy"}}}
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "An Open API for parking lot management",
+    "version": "1.0.0",
+    "title": "JParker REST API",
+    "contact": {
+      "name": "Ariel Ouziel",
+      "url": "www.arielouziel.com",
+      "email": "contact@arielouziel.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "parking-lot-controller",
+      "description": "Operations pertaining to parking lots in Parking Lot Management System"
+    }
+  ],
+  "paths": {
+    "/api/v1/parking-lots": {
+      "get": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "View a list of all parking lots",
+        "operationId": "getAllParkingLotsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "401": {
+            "description": "You are not authorized to view the resource"
+          },
+          "403": {
+            "description": "Accessing the resource you were trying to reach is forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Create a new parking lot",
+        "operationId": "createParkingLotUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "parkingLot",
+            "description": "parkingLot",
+            "required": true,
+            "schema": {
+              "originalRef": "ParkingLot",
+              "$ref": "#/definitions/ParkingLot"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ParkingLot",
+              "$ref": "#/definitions/ParkingLot"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/parking-lots/{lotId}": {
+      "get": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Get a parking lot by Id",
+        "operationId": "getParkingLotByIdUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "lotId",
+            "in": "path",
+            "description": "ParkingLot id from which parking object will retrieve",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ParkingLot",
+              "$ref": "#/definitions/ParkingLot"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/parking-lots/{lotId}/slot-uses": {
+      "post": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Put a car in a any free parking slot",
+        "operationId": "enterParkingLotUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "carPowerType",
+            "description": "carPowerType",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "twentyKw",
+                "fiftyKw",
+                "sedan"
+              ]
+            }
+          },
+          {
+            "name": "lotId",
+            "in": "path",
+            "description": "ParkingLot id from which parking slot will be retrieved",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully picked the slot",
+            "schema": {
+              "originalRef": "ParkingSlotUse",
+              "$ref": "#/definitions/ParkingSlotUse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Somebody took the slot before you"
+          },
+          "412": {
+            "description": "Preconditions failed"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/parking-lots/{lotId}/slot-uses/{useId}/leave": {
+      "put": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Remove car from parking lot and bill the customer",
+        "operationId": "leaveParkingLotUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "lotId",
+            "in": "path",
+            "description": "ParkingLot id from which parking slot will be retrieved",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "useId",
+            "in": "path",
+            "description": "Occupation id provided when entered the parking lot",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully leaved the parking lot",
+            "schema": {
+              "originalRef": "ParkingSlotUse",
+              "$ref": "#/definitions/ParkingSlotUse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Somebody took the slot before you"
+          },
+          "412": {
+            "description": "Preconditions failed"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/parking-lots/{lotId}/slots": {
+      "get": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Get a list of free slots in a parking lot",
+        "operationId": "listFreeParkingSlotsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "lotId",
+            "in": "path",
+            "description": "ParkingLot id from which parking slots will be retrieved",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "parkingSlotStatus",
+            "in": "query",
+            "description": "Specify parking slot status to be used (free, occupied)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "free",
+              "occupied"
+            ]
+          },
+          {
+            "name": "parkingSlotType",
+            "in": "query",
+            "description": "Specify parking slot type to be used (twentyKw, fiftyKw or sedan)",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "twentyKw",
+              "fiftyKw",
+              "sedan"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "originalRef": "ParkingSlot",
+                "$ref": "#/definitions/ParkingSlot"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Create a new slot in a parking lot",
+        "operationId": "createParkingSlotUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "lotId",
+            "in": "path",
+            "description": "ParkingLot id where to add the slot",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "slot",
+            "description": "slot",
+            "required": true,
+            "schema": {
+              "originalRef": "ParkingSlot",
+              "$ref": "#/definitions/ParkingSlot"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "ParkingLot",
+              "$ref": "#/definitions/ParkingLot"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "HourRatePlusFixedPricingPolicy": {
+      "title": "HourRatePlusFixedPricingPolicy",
+      "allOf": [
+        {
+          "originalRef": "PricingPolicy",
+          "$ref": "#/definitions/PricingPolicy"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "currencyCode": {
+              "type": "string",
+              "description": "Code of of price currency"
+            },
+            "fixedPrice": {
+              "type": "integer",
+              "format": "int32",
+              "description": "Fixed amount"
+            },
+            "hourPrice": {
+              "type": "integer",
+              "format": "int32",
+              "description": "Hour price in smallest unit of currency"
+            }
+          },
+          "title": "HourRatePlusFixedPricingPolicy",
+          "description": "Details about hour rate plus fixed amount pricing policy"
+        }
+      ],
+      "description": "Details about hour rate plus fixed amount pricing policy"
+    },
+    "HourRatePricingPolicy": {
+      "title": "HourRatePricingPolicy",
+      "allOf": [
+        {
+          "originalRef": "PricingPolicy",
+          "$ref": "#/definitions/PricingPolicy"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "currencyCode": {
+              "type": "string",
+              "description": "Code of of price currency"
+            },
+            "hourPrice": {
+              "type": "integer",
+              "format": "int32",
+              "description": "Hour price in smallest unit of currency"
+            }
+          },
+          "title": "HourRatePricingPolicy",
+          "description": "Details about hour rate pricing policy"
+        }
+      ],
+      "description": "Details about hour rate pricing policy"
+    },
+    "ParkingLot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The database generated parking lot ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the parking lot"
+        },
+        "pricingPolicy": {
+          "originalRef": "PricingPolicy",
+          "$ref": "#/definitions/PricingPolicy"
+        },
+        "slots": {
+          "type": "array",
+          "description": "All the slots of the parking lot",
+          "items": {
+            "originalRef": "ParkingSlot",
+            "$ref": "#/definitions/ParkingSlot"
+          }
+        }
+      },
+      "title": "ParkingLot",
+      "description": "All details about parking lots. "
+    },
+    "ParkingSlot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The database generated slot ID"
+        },
+        "location": {
+          "type": "string",
+          "description": "The slot location in the parking lot"
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the parking slot",
+          "enum": [
+            "free",
+            "occupied"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the parking slot",
+          "enum": [
+            "twentyKw",
+            "fiftyKw",
+            "sedan"
+          ]
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ParkingSlot",
+      "description": "All details about parking slots. "
+    },
+    "ParkingSlotUse": {
+      "type": "object",
+      "properties": {
+        "carPowerType": {
+          "type": "string",
+          "description": "The power type of the car using the slot",
+          "enum": [
+            "twentyKw",
+            "fiftyKw",
+            "sedan"
+          ]
+        },
+        "currencyCode": {
+          "type": "string",
+          "description": "The currency code for billed price"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when occupation has ended"
+        },
+        "formattedPrice": {
+          "type": "string",
+          "description": "The billed price in human readable format"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The database generated slot occupation item ID"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The billed price for this occupation"
+        },
+        "slot": {
+          "originalRef": "ParkingSlot",
+          "$ref": "#/definitions/ParkingSlot"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when occupation has started"
+        }
+      },
+      "title": "ParkingSlotUse"
+    },
+    "PricingPolicy": {
+      "type": "object",
+      "discriminator": "pricingPolicyType",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pricingPolicyType": {
+          "type": "string",
+          "description": "Type of pricing policy (hourRatePlusFixed, hourRate)"
+        }
+      },
+      "title": "PricingPolicy"
+    }
+  }
+}

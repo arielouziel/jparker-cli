@@ -52,6 +52,17 @@ public class JSON {
 
     public static GsonBuilder createGson() {
         GsonFireBuilder fireBuilder = new GsonFireBuilder()
+                .registerTypeSelector(PricingPolicy.class, new TypeSelector() {
+                    @Override
+                    public Class getClassForElement(JsonElement readElement) {
+                        Map classByDiscriminatorValue = new HashMap();
+                        classByDiscriminatorValue.put("HourRatePlusFixedPricingPolicy".toUpperCase(Locale.ROOT), HourRatePlusFixedPricingPolicy.class);
+                        classByDiscriminatorValue.put("HourRatePricingPolicy".toUpperCase(Locale.ROOT), HourRatePricingPolicy.class);
+                        classByDiscriminatorValue.put("PricingPolicy".toUpperCase(Locale.ROOT), PricingPolicy.class);
+                        return getClassByDiscriminator(classByDiscriminatorValue,
+                                getDiscriminatorValue(readElement, "pricingPolicyType"));
+                    }
+          })
         ;
         GsonBuilder builder = fireBuilder.createGsonBuilder();
         return builder;

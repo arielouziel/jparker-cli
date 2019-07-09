@@ -18,7 +18,7 @@ import com.aouziel.jparker.client.invoker.Pair;
 import java.util.Map;
 import java.util.List;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-09T01:28:10.848+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T01:10:10.453+02:00[Europe/Paris]")
 public class OAuth implements Authentication {
   private String accessToken;
 

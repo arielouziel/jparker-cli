@@ -2,22 +2,38 @@ package com.aouziel.jparker.client;
 
 import com.aouziel.jparker.client.api.ParkingLotControllerApi;
 import com.aouziel.jparker.client.invoker.ApiException;
-import com.aouziel.jparker.client.model.ParkingSlotUse;
+import com.aouziel.jparker.client.model.*;
 import org.apache.commons.cli.*;
 
 public class JParkerCli {
-    private static Options configFirstParameters() {
-        final Option helpFileOption = Option.builder("h")
-                .longOpt("help")
-                .desc("Affiche le message d'aide")
-                .build();
+    private static ParkingLotControllerApi apiInstance = new ParkingLotControllerApi();
 
-        final Options firstOptions = new Options();
+    private static Options commonOptions() {
+        final Options options = new Options();
 
-        firstOptions.addOption(helpFileOption);
+        options.addOption("h", "help", false, "Display help on command");
+        options.addOption("c", "create", false, "Create parking lot");
+        options.addOption("p","path", true, "JParker API Base Path (default: http://localhost:8080)");
 
-        return firstOptions;
+        return options;
+    }
 
+    private static Options createOptions(Options commonOptions) {
+        final Options options = new Options();
+
+        // First Options
+        for (final Option fo : commonOptions.getOptions()) {
+            options.addOption(fo);
+        }
+
+        options.addRequiredOption("c", "create", false, "Create a new parking lot");
+        options.addRequiredOption("n", "name", true, "Name of parking lot");
+        options.addRequiredOption("pp", "pricing-policy", true, "Pricing policy (hourRate, hourRatePlusFixed)");
+        options.addRequiredOption("hr", "hour-rate", true, "Hour rate in smallest currency unit");
+        options.addRequiredOption("cc", "currency-code", true, "Currency code (EUR, USD, ...)");
+        options.addOption("a", "fixed-amount", true, "Fixed amount in smallest currency unit");
+
+        return options;
     }
 
     private static Options configParameters(Options firstOptions) {
@@ -29,44 +45,65 @@ public class JParkerCli {
         }
 
         options.addOption("p", "parking-lot", true, "Parking lot ID");
-        options.addOption("c", "create", false, "Create a new parking lot");
+        options.addOption("c", "create", true, "Create a new parking lot");
         options.addOption("a", "add-slot", true, "Add slot in parking lot");
         options.addOption("e", "enter", false, "Enter parking lot");
         options.addOption("pt", "power-type", true, "Car power type");
         options.addOption("l", "leave", false, "Leave parking lot");
         options.addOption("u", "use-id", true, "Slot use id");
+        options.addOption("h","host", true, "JParker API Base URL (default: http://localhost:8080)");
 
         return options;
     }
 
     public static void main(final String[] args) throws ParseException, ApiException {
-        final Options firstOptions = configFirstParameters();
-        final Options options = configParameters(firstOptions);
+        final Options commonOptions = commonOptions();
+        final Options createOptions = createOptions(commonOptions);
 
         // On parse l'aide
         final CommandLineParser parser = new DefaultParser();
-        final CommandLine firstLine = parser.parse(configFirstParameters(), args, true);
+        final CommandLine firstLine = parser.parse(commonOptions(), args, true);
 
         // Si mode aide
         boolean helpMode = firstLine.hasOption("help");
         if (helpMode) {
             final HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("jparker", options, true);
+            if (firstLine.hasOption("create")) {
+                formatter.printHelp("jparker", createOptions, true);
+            } else {
+                formatter.printHelp("jparker", commonOptions, true);
+            }
+
             System.exit(0);
         }
 
-        // On parse la suite
-        final CommandLine line = parser.parse(options, args);
-        if (line.hasOption("enter")) {
-            enterParkingLot(
-                    line.getOptionValue('p'),
-                    line.getOptionValue("pt")
+        apiInstance.getApiClient().setBasePath(firstLine.getOptionValue("p", "http://localhost:8080"));
+
+        if (firstLine.hasOption("create")) {
+            final CommandLine line = parser.parse(createOptions, args);
+            createParkingLot(
+                    line.getOptionValue("name"),
+                    line.getOptionValue("pricing-policy"),
+                    line.getOptionValue("hour-rate"),
+                    line.getOptionValue("currency-code"),
+                    line.getOptionValue("fixed-amount")
             );
         }
+
+//        // On parse la suite
+//
+//
+//        if (line.hasOption("create")) {
+//
+//        } else if (line.hasOption("enter")) {
+//            enterParkingLot(
+//                    line.getOptionValue('p'),
+//                    line.getOptionValue("pt")
+//            );
+//        }
     }
 
     private static void enterParkingLot(String lotId, String powerType) {
-        ParkingLotControllerApi apiInstance = new ParkingLotControllerApi();
         try {
             ParkingSlotUse response = apiInstance.enterParkingLotUsingPOST(Long.valueOf(lotId), powerType);
             System.out.println(response);
@@ -75,8 +112,26 @@ public class JParkerCli {
         }
     }
 
-    private static void createParkingLot(String name) {
-//        ParkingLotControllerApi apiInstance = new ParkingLotControllerApi();
-//        apiInstance.
+    private static void createParkingLot(String name, String pricingPolicyType, String hourPrice, String currencyCode, String fixedPrice) {
+        try {
+            PricingPolicy pricingPolicy = pricingPolicyType.equals("HOURRATEPRICINGPOLICY") ?
+                    new HourRatePricingPolicy()
+                            .hourPrice(Integer.valueOf(hourPrice))
+                            .currencyCode(currencyCode)
+                            .pricingPolicyType(pricingPolicyType):
+                    new HourRatePlusFixedPricingPolicy()
+                            .hourPrice(Integer.valueOf(hourPrice))
+                            .currencyCode(currencyCode)
+                            .fixedPrice(Integer.valueOf(fixedPrice))
+                            .pricingPolicyType(pricingPolicyType);
+
+            ParkingLot parkingLot = new ParkingLot().name(name)
+                    .pricingPolicy(pricingPolicy);
+
+            ParkingLot response = apiInstance.createParkingLotUsingPOST(parkingLot);
+            System.out.println(response);
+        } catch (ApiException e) {
+            System.err.println(e.getResponseBody());
+        }
     }
 }

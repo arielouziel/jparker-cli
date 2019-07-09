@@ -13,7 +13,7 @@
 
 package com.aouziel.jparker.client.invoker;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-09T01:28:10.848+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T01:10:10.453+02:00[Europe/Paris]")
 public class Configuration {
     private static ApiClient defaultApiClient = new ApiClient();
 
