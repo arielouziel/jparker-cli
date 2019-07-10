@@ -1,6 +1,6 @@
 package com.aouziel.jparker.client;
 
-import com.aouziel.jparker.client.command.JParker;
+import com.aouziel.jparker.client.cli.JParker;
 import picocli.CommandLine;
 
 public class JParkerCli {

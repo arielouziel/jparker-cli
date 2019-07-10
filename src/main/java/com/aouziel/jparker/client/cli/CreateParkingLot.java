@@ -1,4 +1,4 @@
-package com.aouziel.jparker.client.command;
+package com.aouziel.jparker.client.cli;
 
 import com.aouziel.jparker.client.api.ParkingLotControllerApi;
 import com.aouziel.jparker.client.invoker.ApiException;

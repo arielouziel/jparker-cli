@@ -1,4 +1,4 @@
-package com.aouziel.jparker.client.command;
+package com.aouziel.jparker.client.cli;
 
 import picocli.CommandLine;
 
@@ -12,7 +12,7 @@ import picocli.CommandLine;
         },
         mixinStandardHelpOptions = true,
         version = "jparker - version 0.0.1",
-        description = "JParker CLI is a command line tool allowing access to a remote JParker REST API ",
+        description = "JParker CLI is a cli line tool allowing access to a remote JParker REST API ",
         commandListHeading = "%nCommands:%n%nThe most commonly used jparker commands are:%n")
 public class JParker {
     @CommandLine.Option(names = {"-p", "--path"}, description = "Base path of JParker REST API")
