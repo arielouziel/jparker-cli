@@ -28,7 +28,7 @@ import java.io.IOException;
  * All details about parking slots. 
  */
 @ApiModel(description = "All details about parking slots. ")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T01:10:10.453+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T19:22:28.339+02:00[Europe/Paris]")
 public class ParkingSlot {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)

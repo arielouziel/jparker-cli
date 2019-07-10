@@ -29,7 +29,7 @@ import java.io.IOException;
 
 import com.aouziel.jparker.client.model.ParkingLot;
 import com.aouziel.jparker.client.model.ParkingSlot;
-import com.aouziel.jparker.client.model.ParkingSlotUse;
+import com.aouziel.jparker.client.model.ParkingTicket;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -251,11 +251,11 @@ public class ParkingLotControllerApi {
      * 
      * @param lotId ParkingLot id where to add the slot (required)
      * @param parkingSlot slot (required)
-     * @return ParkingLot
+     * @return ParkingSlot
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ParkingLot createParkingSlotUsingPOST(Long lotId, ParkingSlot parkingSlot) throws ApiException {
-        ApiResponse<ParkingLot> resp = createParkingSlotUsingPOSTWithHttpInfo(lotId, parkingSlot);
+    public ParkingSlot createParkingSlotUsingPOST(Long lotId, ParkingSlot parkingSlot) throws ApiException {
+        ApiResponse<ParkingSlot> resp = createParkingSlotUsingPOSTWithHttpInfo(lotId, parkingSlot);
         return resp.getData();
     }
 
@@ -264,12 +264,12 @@ public class ParkingLotControllerApi {
      * 
      * @param lotId ParkingLot id where to add the slot (required)
      * @param parkingSlot slot (required)
-     * @return ApiResponse&lt;ParkingLot&gt;
+     * @return ApiResponse&lt;ParkingSlot&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ParkingLot> createParkingSlotUsingPOSTWithHttpInfo(Long lotId, ParkingSlot parkingSlot) throws ApiException {
+    public ApiResponse<ParkingSlot> createParkingSlotUsingPOSTWithHttpInfo(Long lotId, ParkingSlot parkingSlot) throws ApiException {
         com.squareup.okhttp.Call call = createParkingSlotUsingPOSTValidateBeforeCall(lotId, parkingSlot, null, null);
-        Type localVarReturnType = new TypeToken<ParkingLot>(){}.getType();
+        Type localVarReturnType = new TypeToken<ParkingSlot>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -282,7 +282,7 @@ public class ParkingLotControllerApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call createParkingSlotUsingPOSTAsync(Long lotId, ParkingSlot parkingSlot, final ApiCallback<ParkingLot> callback) throws ApiException {
+    public com.squareup.okhttp.Call createParkingSlotUsingPOSTAsync(Long lotId, ParkingSlot parkingSlot, final ApiCallback<ParkingSlot> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -304,7 +304,7 @@ public class ParkingLotControllerApi {
         }
 
         com.squareup.okhttp.Call call = createParkingSlotUsingPOSTValidateBeforeCall(lotId, parkingSlot, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ParkingLot>(){}.getType();
+        Type localVarReturnType = new TypeToken<ParkingSlot>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -382,11 +382,11 @@ public class ParkingLotControllerApi {
      * 
      * @param lotId ParkingLot id from which parking slot will be retrieved (required)
      * @param body carPowerType (required)
-     * @return ParkingSlotUse
+     * @return ParkingTicket
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ParkingSlotUse enterParkingLotUsingPOST(Long lotId, String body) throws ApiException {
-        ApiResponse<ParkingSlotUse> resp = enterParkingLotUsingPOSTWithHttpInfo(lotId, body);
+    public ParkingTicket enterParkingLotUsingPOST(Long lotId, String body) throws ApiException {
+        ApiResponse<ParkingTicket> resp = enterParkingLotUsingPOSTWithHttpInfo(lotId, body);
         return resp.getData();
     }
 
@@ -395,12 +395,12 @@ public class ParkingLotControllerApi {
      * 
      * @param lotId ParkingLot id from which parking slot will be retrieved (required)
      * @param body carPowerType (required)
-     * @return ApiResponse&lt;ParkingSlotUse&gt;
+     * @return ApiResponse&lt;ParkingTicket&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ParkingSlotUse> enterParkingLotUsingPOSTWithHttpInfo(Long lotId, String body) throws ApiException {
+    public ApiResponse<ParkingTicket> enterParkingLotUsingPOSTWithHttpInfo(Long lotId, String body) throws ApiException {
         com.squareup.okhttp.Call call = enterParkingLotUsingPOSTValidateBeforeCall(lotId, body, null, null);
-        Type localVarReturnType = new TypeToken<ParkingSlotUse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ParkingTicket>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -413,7 +413,7 @@ public class ParkingLotControllerApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call enterParkingLotUsingPOSTAsync(Long lotId, String body, final ApiCallback<ParkingSlotUse> callback) throws ApiException {
+    public com.squareup.okhttp.Call enterParkingLotUsingPOSTAsync(Long lotId, String body, final ApiCallback<ParkingTicket> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -435,7 +435,7 @@ public class ParkingLotControllerApi {
         }
 
         com.squareup.okhttp.Call call = enterParkingLotUsingPOSTValidateBeforeCall(lotId, body, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ParkingSlotUse>(){}.getType();
+        Type localVarReturnType = new TypeToken<ParkingTicket>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -498,23 +498,23 @@ public class ParkingLotControllerApi {
     /**
      * View a list of all parking lots
      * 
-     * @return List&lt;Object&gt;
+     * @return List&lt;ParkingLot&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public List<Object> getAllParkingLotsUsingGET() throws ApiException {
-        ApiResponse<List<Object>> resp = getAllParkingLotsUsingGETWithHttpInfo();
+    public List<ParkingLot> getAllParkingLotsUsingGET() throws ApiException {
+        ApiResponse<List<ParkingLot>> resp = getAllParkingLotsUsingGETWithHttpInfo();
         return resp.getData();
     }
 
     /**
      * View a list of all parking lots
      * 
-     * @return ApiResponse&lt;List&lt;Object&gt;&gt;
+     * @return ApiResponse&lt;List&lt;ParkingLot&gt;&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<List<Object>> getAllParkingLotsUsingGETWithHttpInfo() throws ApiException {
+    public ApiResponse<List<ParkingLot>> getAllParkingLotsUsingGETWithHttpInfo() throws ApiException {
         com.squareup.okhttp.Call call = getAllParkingLotsUsingGETValidateBeforeCall(null, null);
-        Type localVarReturnType = new TypeToken<List<Object>>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<ParkingLot>>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -525,7 +525,7 @@ public class ParkingLotControllerApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getAllParkingLotsUsingGETAsync(final ApiCallback<List<Object>> callback) throws ApiException {
+    public com.squareup.okhttp.Call getAllParkingLotsUsingGETAsync(final ApiCallback<List<ParkingLot>> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -547,7 +547,7 @@ public class ParkingLotControllerApi {
         }
 
         com.squareup.okhttp.Call call = getAllParkingLotsUsingGETValidateBeforeCall(progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<List<Object>>(){}.getType();
+        Type localVarReturnType = new TypeToken<List<ParkingLot>>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }
@@ -676,19 +676,19 @@ public class ParkingLotControllerApi {
     /**
      * Build call for leaveParkingLotUsingPUT
      * @param lotId ParkingLot id from which parking slot will be retrieved (required)
-     * @param useId Occupation id provided when entered the parking lot (required)
+     * @param ticketNumber Ticket number provided when entered the parking lot (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call leaveParkingLotUsingPUTCall(Long lotId, Long useId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call leaveParkingLotUsingPUTCall(Long lotId, String ticketNumber, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = new Object();
 
         // create path and map variables
-        String localVarPath = "/api/v1/parking-lots/{lotId}/slot-uses/{useId}/leave"
+        String localVarPath = "/api/v1/parking-lots/{lotId}/tickets/{ticketNumber}/leave"
             .replaceAll("\\{" + "lotId" + "\\}", apiClient.escapeString(lotId.toString()))
-            .replaceAll("\\{" + "useId" + "\\}", apiClient.escapeString(useId.toString()));
+            .replaceAll("\\{" + "ticketNumber" + "\\}", apiClient.escapeString(ticketNumber.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -725,20 +725,20 @@ public class ParkingLotControllerApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call leaveParkingLotUsingPUTValidateBeforeCall(Long lotId, Long useId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call leaveParkingLotUsingPUTValidateBeforeCall(Long lotId, String ticketNumber, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'lotId' is set
         if (lotId == null) {
             throw new ApiException("Missing the required parameter 'lotId' when calling leaveParkingLotUsingPUT(Async)");
         }
         
-        // verify the required parameter 'useId' is set
-        if (useId == null) {
-            throw new ApiException("Missing the required parameter 'useId' when calling leaveParkingLotUsingPUT(Async)");
+        // verify the required parameter 'ticketNumber' is set
+        if (ticketNumber == null) {
+            throw new ApiException("Missing the required parameter 'ticketNumber' when calling leaveParkingLotUsingPUT(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = leaveParkingLotUsingPUTCall(lotId, useId, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = leaveParkingLotUsingPUTCall(lotId, ticketNumber, progressListener, progressRequestListener);
         return call;
 
     }
@@ -747,12 +747,12 @@ public class ParkingLotControllerApi {
      * Remove car from parking lot and bill the customer
      * 
      * @param lotId ParkingLot id from which parking slot will be retrieved (required)
-     * @param useId Occupation id provided when entered the parking lot (required)
-     * @return ParkingSlotUse
+     * @param ticketNumber Ticket number provided when entered the parking lot (required)
+     * @return ParkingTicket
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ParkingSlotUse leaveParkingLotUsingPUT(Long lotId, Long useId) throws ApiException {
-        ApiResponse<ParkingSlotUse> resp = leaveParkingLotUsingPUTWithHttpInfo(lotId, useId);
+    public ParkingTicket leaveParkingLotUsingPUT(Long lotId, String ticketNumber) throws ApiException {
+        ApiResponse<ParkingTicket> resp = leaveParkingLotUsingPUTWithHttpInfo(lotId, ticketNumber);
         return resp.getData();
     }
 
@@ -760,13 +760,13 @@ public class ParkingLotControllerApi {
      * Remove car from parking lot and bill the customer
      * 
      * @param lotId ParkingLot id from which parking slot will be retrieved (required)
-     * @param useId Occupation id provided when entered the parking lot (required)
-     * @return ApiResponse&lt;ParkingSlotUse&gt;
+     * @param ticketNumber Ticket number provided when entered the parking lot (required)
+     * @return ApiResponse&lt;ParkingTicket&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<ParkingSlotUse> leaveParkingLotUsingPUTWithHttpInfo(Long lotId, Long useId) throws ApiException {
-        com.squareup.okhttp.Call call = leaveParkingLotUsingPUTValidateBeforeCall(lotId, useId, null, null);
-        Type localVarReturnType = new TypeToken<ParkingSlotUse>(){}.getType();
+    public ApiResponse<ParkingTicket> leaveParkingLotUsingPUTWithHttpInfo(Long lotId, String ticketNumber) throws ApiException {
+        com.squareup.okhttp.Call call = leaveParkingLotUsingPUTValidateBeforeCall(lotId, ticketNumber, null, null);
+        Type localVarReturnType = new TypeToken<ParkingTicket>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
@@ -774,12 +774,12 @@ public class ParkingLotControllerApi {
      * Remove car from parking lot and bill the customer (asynchronously)
      * 
      * @param lotId ParkingLot id from which parking slot will be retrieved (required)
-     * @param useId Occupation id provided when entered the parking lot (required)
+     * @param ticketNumber Ticket number provided when entered the parking lot (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call leaveParkingLotUsingPUTAsync(Long lotId, Long useId, final ApiCallback<ParkingSlotUse> callback) throws ApiException {
+    public com.squareup.okhttp.Call leaveParkingLotUsingPUTAsync(Long lotId, String ticketNumber, final ApiCallback<ParkingTicket> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -800,8 +800,8 @@ public class ParkingLotControllerApi {
             };
         }
 
-        com.squareup.okhttp.Call call = leaveParkingLotUsingPUTValidateBeforeCall(lotId, useId, progressListener, progressRequestListener);
-        Type localVarReturnType = new TypeToken<ParkingSlotUse>(){}.getType();
+        com.squareup.okhttp.Call call = leaveParkingLotUsingPUTValidateBeforeCall(lotId, ticketNumber, progressListener, progressRequestListener);
+        Type localVarReturnType = new TypeToken<ParkingTicket>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;
     }

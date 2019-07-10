@@ -27,10 +27,10 @@ import java.io.IOException;
 import org.threeten.bp.OffsetDateTime;
 
 /**
- * ParkingSlotUse
+ * ParkingTicket
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T01:10:10.453+02:00[Europe/Paris]")
-public class ParkingSlotUse {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T19:22:28.339+02:00[Europe/Paris]")
+public class ParkingTicket {
   /**
    * The power type of the car using the slot
    */
@@ -100,6 +100,10 @@ public class ParkingSlotUse {
   @SerializedName(SERIALIZED_NAME_ID)
   private Long id;
 
+  public static final String SERIALIZED_NAME_NUMBER = "number";
+  @SerializedName(SERIALIZED_NAME_NUMBER)
+  private String number;
+
   public static final String SERIALIZED_NAME_PRICE = "price";
   @SerializedName(SERIALIZED_NAME_PRICE)
   private Integer price;
@@ -112,7 +116,7 @@ public class ParkingSlotUse {
   @SerializedName(SERIALIZED_NAME_START_TIME)
   private OffsetDateTime startTime;
 
-  public ParkingSlotUse carPowerType(CarPowerTypeEnum carPowerType) {
+  public ParkingTicket carPowerType(CarPowerTypeEnum carPowerType) {
     this.carPowerType = carPowerType;
     return this;
   }
@@ -130,7 +134,7 @@ public class ParkingSlotUse {
     this.carPowerType = carPowerType;
   }
 
-  public ParkingSlotUse currencyCode(String currencyCode) {
+  public ParkingTicket currencyCode(String currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
@@ -148,7 +152,7 @@ public class ParkingSlotUse {
     this.currencyCode = currencyCode;
   }
 
-  public ParkingSlotUse endTime(OffsetDateTime endTime) {
+  public ParkingTicket endTime(OffsetDateTime endTime) {
     this.endTime = endTime;
     return this;
   }
@@ -166,7 +170,7 @@ public class ParkingSlotUse {
     this.endTime = endTime;
   }
 
-  public ParkingSlotUse formattedPrice(String formattedPrice) {
+  public ParkingTicket formattedPrice(String formattedPrice) {
     this.formattedPrice = formattedPrice;
     return this;
   }
@@ -184,7 +188,7 @@ public class ParkingSlotUse {
     this.formattedPrice = formattedPrice;
   }
 
-  public ParkingSlotUse id(Long id) {
+  public ParkingTicket id(Long id) {
     this.id = id;
     return this;
   }
@@ -202,16 +206,34 @@ public class ParkingSlotUse {
     this.id = id;
   }
 
-  public ParkingSlotUse price(Integer price) {
+  public ParkingTicket number(String number) {
+    this.number = number;
+    return this;
+  }
+
+   /**
+   * The ticket number
+   * @return number
+  **/
+  @ApiModelProperty(value = "The ticket number")
+  public String getNumber() {
+    return number;
+  }
+
+  public void setNumber(String number) {
+    this.number = number;
+  }
+
+  public ParkingTicket price(Integer price) {
     this.price = price;
     return this;
   }
 
    /**
-   * The billed price for this occupation
+   * The billed price for this ticket
    * @return price
   **/
-  @ApiModelProperty(value = "The billed price for this occupation")
+  @ApiModelProperty(value = "The billed price for this ticket")
   public Integer getPrice() {
     return price;
   }
@@ -220,7 +242,7 @@ public class ParkingSlotUse {
     this.price = price;
   }
 
-  public ParkingSlotUse slot(ParkingSlot slot) {
+  public ParkingTicket slot(ParkingSlot slot) {
     this.slot = slot;
     return this;
   }
@@ -238,7 +260,7 @@ public class ParkingSlotUse {
     this.slot = slot;
   }
 
-  public ParkingSlotUse startTime(OffsetDateTime startTime) {
+  public ParkingTicket startTime(OffsetDateTime startTime) {
     this.startTime = startTime;
     return this;
   }
@@ -265,33 +287,35 @@ public class ParkingSlotUse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ParkingSlotUse parkingSlotUse = (ParkingSlotUse) o;
-    return Objects.equals(this.carPowerType, parkingSlotUse.carPowerType) &&
-        Objects.equals(this.currencyCode, parkingSlotUse.currencyCode) &&
-        Objects.equals(this.endTime, parkingSlotUse.endTime) &&
-        Objects.equals(this.formattedPrice, parkingSlotUse.formattedPrice) &&
-        Objects.equals(this.id, parkingSlotUse.id) &&
-        Objects.equals(this.price, parkingSlotUse.price) &&
-        Objects.equals(this.slot, parkingSlotUse.slot) &&
-        Objects.equals(this.startTime, parkingSlotUse.startTime);
+    ParkingTicket parkingTicket = (ParkingTicket) o;
+    return Objects.equals(this.carPowerType, parkingTicket.carPowerType) &&
+        Objects.equals(this.currencyCode, parkingTicket.currencyCode) &&
+        Objects.equals(this.endTime, parkingTicket.endTime) &&
+        Objects.equals(this.formattedPrice, parkingTicket.formattedPrice) &&
+        Objects.equals(this.id, parkingTicket.id) &&
+        Objects.equals(this.number, parkingTicket.number) &&
+        Objects.equals(this.price, parkingTicket.price) &&
+        Objects.equals(this.slot, parkingTicket.slot) &&
+        Objects.equals(this.startTime, parkingTicket.startTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(carPowerType, currencyCode, endTime, formattedPrice, id, price, slot, startTime);
+    return Objects.hash(carPowerType, currencyCode, endTime, formattedPrice, id, number, price, slot, startTime);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ParkingSlotUse {\n");
+    sb.append("class ParkingTicket {\n");
     
     sb.append("    carPowerType: ").append(toIndentedString(carPowerType)).append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    endTime: ").append(toIndentedString(endTime)).append("\n");
     sb.append("    formattedPrice: ").append(toIndentedString(formattedPrice)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    number: ").append(toIndentedString(number)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    slot: ").append(toIndentedString(slot)).append("\n");
     sb.append("    startTime: ").append(toIndentedString(startTime)).append("\n");

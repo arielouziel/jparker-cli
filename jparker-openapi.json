@@ -39,7 +39,8 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "object"
+                "originalRef": "ParkingLot",
+                "$ref": "#/definitions/ParkingLot"
               }
             }
           },
@@ -185,69 +186,8 @@
           "200": {
             "description": "Successfully picked the slot",
             "schema": {
-              "originalRef": "ParkingSlotUse",
-              "$ref": "#/definitions/ParkingSlotUse"
-            }
-          },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "409": {
-            "description": "Somebody took the slot before you"
-          },
-          "412": {
-            "description": "Preconditions failed"
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/v1/parking-lots/{lotId}/slot-uses/{useId}/leave": {
-      "put": {
-        "tags": [
-          "parking-lot-controller"
-        ],
-        "summary": "Remove car from parking lot and bill the customer",
-        "operationId": "leaveParkingLotUsingPUT",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "lotId",
-            "in": "path",
-            "description": "ParkingLot id from which parking slot will be retrieved",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "useId",
-            "in": "path",
-            "description": "Occupation id provided when entered the parking lot",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully leaved the parking lot",
-            "schema": {
-              "originalRef": "ParkingSlotUse",
-              "$ref": "#/definitions/ParkingSlotUse"
+              "originalRef": "ParkingTicket",
+              "$ref": "#/definitions/ParkingTicket"
             }
           },
           "201": {
@@ -376,8 +316,8 @@
           "200": {
             "description": "OK",
             "schema": {
-              "originalRef": "ParkingLot",
-              "$ref": "#/definitions/ParkingLot"
+              "originalRef": "ParkingSlot",
+              "$ref": "#/definitions/ParkingSlot"
             }
           },
           "201": {
@@ -391,6 +331,66 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/parking-lots/{lotId}/tickets/{ticketNumber}/leave": {
+      "put": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Remove car from parking lot and bill the customer",
+        "operationId": "leaveParkingLotUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "lotId",
+            "in": "path",
+            "description": "ParkingLot id from which parking slot will be retrieved",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "ticketNumber",
+            "in": "path",
+            "description": "Ticket number provided when entered the parking lot",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully leaved the parking lot",
+            "schema": {
+              "originalRef": "ParkingTicket",
+              "$ref": "#/definitions/ParkingTicket"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Somebody took the slot before you"
+          },
+          "412": {
+            "description": "Preconditions failed"
           }
         },
         "deprecated": false
@@ -520,7 +520,7 @@
       "title": "ParkingSlot",
       "description": "All details about parking slots. "
     },
-    "ParkingSlotUse": {
+    "ParkingTicket": {
       "type": "object",
       "properties": {
         "carPowerType": {
@@ -550,10 +550,14 @@
           "format": "int64",
           "description": "The database generated slot occupation item ID"
         },
+        "number": {
+          "type": "string",
+          "description": "The ticket number"
+        },
         "price": {
           "type": "integer",
           "format": "int32",
-          "description": "The billed price for this occupation"
+          "description": "The billed price for this ticket"
         },
         "slot": {
           "originalRef": "ParkingSlot",
@@ -565,7 +569,7 @@
           "description": "The time when occupation has started"
         }
       },
-      "title": "ParkingSlotUse"
+      "title": "ParkingTicket"
     },
     "PricingPolicy": {
       "type": "object",
@@ -577,7 +581,7 @@
         },
         "pricingPolicyType": {
           "type": "string",
-          "description": "Type of pricing policy (hourRatePlusFixed, hourRate)"
+          "description": "Type of pricing policy"
         }
       },
       "title": "PricingPolicy"

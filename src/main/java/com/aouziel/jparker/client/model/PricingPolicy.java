@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * PricingPolicy
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T01:10:10.453+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T19:22:28.339+02:00[Europe/Paris]")
 
 public class PricingPolicy {
   public static final String SERIALIZED_NAME_ID = "id";
@@ -65,10 +65,10 @@ public class PricingPolicy {
   }
 
    /**
-   * Type of pricing policy (hourRatePlusFixed, hourRate)
+   * Type of pricing policy
    * @return pricingPolicyType
   **/
-  @ApiModelProperty(value = "Type of pricing policy (hourRatePlusFixed, hourRate)")
+  @ApiModelProperty(value = "Type of pricing policy")
   public String getPricingPolicyType() {
     return pricingPolicyType;
   }

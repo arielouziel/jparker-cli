@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**enterParkingLotUsingPOST**](ParkingLotControllerApi.md#enterParkingLotUsingPOST) | **POST** /api/v1/parking-lots/{lotId}/slot-uses | Put a car in a any free parking slot
 [**getAllParkingLotsUsingGET**](ParkingLotControllerApi.md#getAllParkingLotsUsingGET) | **GET** /api/v1/parking-lots | View a list of all parking lots
 [**getParkingLotByIdUsingGET**](ParkingLotControllerApi.md#getParkingLotByIdUsingGET) | **GET** /api/v1/parking-lots/{lotId} | Get a parking lot by Id
-[**leaveParkingLotUsingPUT**](ParkingLotControllerApi.md#leaveParkingLotUsingPUT) | **PUT** /api/v1/parking-lots/{lotId}/slot-uses/{useId}/leave | Remove car from parking lot and bill the customer
+[**leaveParkingLotUsingPUT**](ParkingLotControllerApi.md#leaveParkingLotUsingPUT) | **PUT** /api/v1/parking-lots/{lotId}/tickets/{ticketNumber}/leave | Remove car from parking lot and bill the customer
 [**listFreeParkingSlotsUsingGET**](ParkingLotControllerApi.md#listFreeParkingSlotsUsingGET) | **GET** /api/v1/parking-lots/{lotId}/slots | Get a list of free slots in a parking lot
 
 
@@ -58,7 +58,7 @@ No authorization required
 
 <a name="createParkingSlotUsingPOST"></a>
 # **createParkingSlotUsingPOST**
-> ParkingLot createParkingSlotUsingPOST(lotId, parkingSlot)
+> ParkingSlot createParkingSlotUsingPOST(lotId, parkingSlot)
 
 Create a new slot in a parking lot
 
@@ -73,7 +73,7 @@ ParkingLotControllerApi apiInstance = new ParkingLotControllerApi();
 Long lotId = 56L; // Long | ParkingLot id where to add the slot
 ParkingSlot parkingSlot = new ParkingSlot(); // ParkingSlot | slot
 try {
-    ParkingLot result = apiInstance.createParkingSlotUsingPOST(lotId, parkingSlot);
+    ParkingSlot result = apiInstance.createParkingSlotUsingPOST(lotId, parkingSlot);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ParkingLotControllerApi#createParkingSlotUsingPOST");
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ParkingLot**](ParkingLot.md)
+[**ParkingSlot**](ParkingSlot.md)
 
 ### Authorization
 
@@ -103,7 +103,7 @@ No authorization required
 
 <a name="enterParkingLotUsingPOST"></a>
 # **enterParkingLotUsingPOST**
-> ParkingSlotUse enterParkingLotUsingPOST(lotId, body)
+> ParkingTicket enterParkingLotUsingPOST(lotId, body)
 
 Put a car in a any free parking slot
 
@@ -118,7 +118,7 @@ ParkingLotControllerApi apiInstance = new ParkingLotControllerApi();
 Long lotId = 56L; // Long | ParkingLot id from which parking slot will be retrieved
 String body = "body_example"; // String | carPowerType
 try {
-    ParkingSlotUse result = apiInstance.enterParkingLotUsingPOST(lotId, body);
+    ParkingTicket result = apiInstance.enterParkingLotUsingPOST(lotId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ParkingLotControllerApi#enterParkingLotUsingPOST");
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ParkingSlotUse**](ParkingSlotUse.md)
+[**ParkingTicket**](ParkingTicket.md)
 
 ### Authorization
 
@@ -148,7 +148,7 @@ No authorization required
 
 <a name="getAllParkingLotsUsingGET"></a>
 # **getAllParkingLotsUsingGET**
-> List&lt;Object&gt; getAllParkingLotsUsingGET()
+> List&lt;ParkingLot&gt; getAllParkingLotsUsingGET()
 
 View a list of all parking lots
 
@@ -161,7 +161,7 @@ View a list of all parking lots
 
 ParkingLotControllerApi apiInstance = new ParkingLotControllerApi();
 try {
-    List<Object> result = apiInstance.getAllParkingLotsUsingGET();
+    List<ParkingLot> result = apiInstance.getAllParkingLotsUsingGET();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ParkingLotControllerApi#getAllParkingLotsUsingGET");
@@ -174,7 +174,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**List&lt;Object&gt;**
+[**List&lt;ParkingLot&gt;**](ParkingLot.md)
 
 ### Authorization
 
@@ -230,7 +230,7 @@ No authorization required
 
 <a name="leaveParkingLotUsingPUT"></a>
 # **leaveParkingLotUsingPUT**
-> ParkingSlotUse leaveParkingLotUsingPUT(lotId, useId)
+> ParkingTicket leaveParkingLotUsingPUT(lotId, ticketNumber)
 
 Remove car from parking lot and bill the customer
 
@@ -243,9 +243,9 @@ Remove car from parking lot and bill the customer
 
 ParkingLotControllerApi apiInstance = new ParkingLotControllerApi();
 Long lotId = 56L; // Long | ParkingLot id from which parking slot will be retrieved
-Long useId = 56L; // Long | Occupation id provided when entered the parking lot
+String ticketNumber = "ticketNumber_example"; // String | Ticket number provided when entered the parking lot
 try {
-    ParkingSlotUse result = apiInstance.leaveParkingLotUsingPUT(lotId, useId);
+    ParkingTicket result = apiInstance.leaveParkingLotUsingPUT(lotId, ticketNumber);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ParkingLotControllerApi#leaveParkingLotUsingPUT");
@@ -258,11 +258,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **lotId** | **Long**| ParkingLot id from which parking slot will be retrieved |
- **useId** | **Long**| Occupation id provided when entered the parking lot |
+ **ticketNumber** | **String**| Ticket number provided when entered the parking lot |
 
 ### Return type
 
-[**ParkingSlotUse**](ParkingSlotUse.md)
+[**ParkingTicket**](ParkingTicket.md)
 
 ### Authorization
 

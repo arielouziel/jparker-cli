@@ -29,7 +29,7 @@ import java.io.IOException;
  * Details about hour rate pricing policy
  */
 @ApiModel(description = "Details about hour rate pricing policy")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T01:10:10.453+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-10T19:22:28.339+02:00[Europe/Paris]")
 public class HourRatePricingPolicy extends PricingPolicy {
   public static final String SERIALIZED_NAME_CURRENCY_CODE = "currencyCode";
   @SerializedName(SERIALIZED_NAME_CURRENCY_CODE)
