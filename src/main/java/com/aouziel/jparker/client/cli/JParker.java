@@ -11,11 +11,11 @@ import picocli.CommandLine;
                 LeaveParkingLot.class
         },
         mixinStandardHelpOptions = true,
-        version = "jparker - version 0.0.1",
-        description = "JParker CLI is a cli line tool allowing access to a remote JParker REST API ",
+        version = "jparker - version 1.0.0",
+        description = "JParker CLI is a cli command line tool allowing access to a remote JParker REST API ",
         commandListHeading = "%nCommands:%n%nThe most commonly used jparker commands are:%n")
 public class JParker {
-    @CommandLine.Option(names = {"-p", "--path"}, description = "Base path of JParker REST API")
+    @CommandLine.Option(names = {"-p", "--path"}, description = "Base path of JParker REST API", showDefaultValue = CommandLine.Help.Visibility.ALWAYS)
     private String path = "http://localhost:8080";
 
     String getPath() {

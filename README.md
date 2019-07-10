@@ -1,10 +1,10 @@
 # jparker-cli
 
-JParker REST API
+JParker client library for the JParker REST API including a CLI. 
 - API version: 1.0.0
   - Build date: 2019-07-09T01:28:10.848+02:00[Europe/Paris]
 
-An Open API for parking lot management
+JParker is an Open API for parking lot management
 
   For more information, please visit [www.arielouziel.com](www.arielouziel.com)
 
@@ -66,6 +66,12 @@ Then manually install the following JARs:
 
 * `target/jparker-cli-0.0.1-SNAPSHOT.jar`
 * `target/lib/*.jar`
+
+### Building the CLI
+
+```
+mvn clean compile assembly:single
+```
 
 ## Getting Started
 

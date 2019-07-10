@@ -5,6 +5,11 @@ import picocli.CommandLine;
 
 public class JParkerCli {
     public static void main(final String[] args) {
-        new CommandLine(new JParker()).parseWithHandler(new CommandLine.RunLast(), args);
+        CommandLine cmd = new CommandLine(new JParker());
+        try {
+            cmd.parseWithHandler(new CommandLine.RunLast(), args);
+        } catch (Exception ex) {
+            cmd.usage(System.err);
+        }
     }
 }
