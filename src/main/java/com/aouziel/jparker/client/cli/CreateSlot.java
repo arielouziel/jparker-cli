@@ -29,7 +29,7 @@ public class CreateSlot implements Runnable {
             for (int i = 0; i < nb; i++) {
                 ParkingSlot parkingSlot = new ParkingSlot()
                         .type(carPowerType);
-                ParkingSlot response = apiInstance.createParkingSlotUsingPOST(lotId, parkingSlot);
+                ParkingSlot response = apiInstance.createParkingSlot(lotId, parkingSlot);
                 System.out.println("Slot created: " + response);
             }
         } catch (ApiException e) {

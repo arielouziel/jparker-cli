@@ -1,7 +1,9 @@
 
+
 # ParkingSlot
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Long** | The database generated slot ID |  [optional]
@@ -11,16 +13,18 @@ Name | Type | Description | Notes
 **version** | **Integer** |  |  [optional]
 
 
-<a name="StatusEnum"></a>
+
 ## Enum: StatusEnum
+
 Name | Value
 ---- | -----
 FREE | &quot;free&quot;
 OCCUPIED | &quot;occupied&quot;
 
 
-<a name="TypeEnum"></a>
+
 ## Enum: TypeEnum
+
 Name | Value
 ---- | -----
 TWENTYKW | &quot;twentyKw&quot;

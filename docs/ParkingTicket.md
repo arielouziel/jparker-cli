@@ -1,7 +1,9 @@
 
+
 # ParkingTicket
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **carPowerType** | [**CarPowerTypeEnum**](#CarPowerTypeEnum) | The power type of the car using the slot |  [optional]
@@ -15,8 +17,9 @@ Name | Type | Description | Notes
 **startTime** | [**OffsetDateTime**](OffsetDateTime.md) | The time when occupation has started |  [optional]
 
 
-<a name="CarPowerTypeEnum"></a>
+
 ## Enum: CarPowerTypeEnum
+
 Name | Value
 ---- | -----
 TWENTYKW | &quot;twentyKw&quot;

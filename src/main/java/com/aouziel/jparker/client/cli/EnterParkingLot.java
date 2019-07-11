@@ -24,7 +24,7 @@ public class EnterParkingLot implements Runnable {
         apiInstance.getApiClient().setBasePath(parent.getPath());
 
         try {
-            ParkingTicket response = apiInstance.enterParkingLotUsingPOST(lotId, carPowerType.toString());
+            ParkingTicket response = apiInstance.enterParkingLot(lotId, carPowerType.toString());
             System.out.println("Ticket received: " + response);
         } catch (ApiException e) {
             System.err.println(e.getResponseBody());
