@@ -11,10 +11,43 @@ JParker Java Client and CLI for consuming [JParker REST API](https://github.com/
 ## Requirements
 
 Building the API client library requires:
-1. Java 1.7+
-2. Maven/Gradle
+1. Java 1.8+
+2. Maven
 
-## Installation
+## Build and Run the CLI
+
+Build an executable jar with all dependencies
+
+```shell
+mvn clean compile assembly:single
+```
+
+Move and rename jar to current dir
+
+```shell
+mv target/jparker-cli-1.0.0-jar-with-dependencies.jar jparker-cli.jar
+```
+
+Show usage
+
+```shell
+java -jar jparker-cli.jar -h
+java -jar jparker-cli.jar create -h
+java -jar jparker-cli.jar slot -h
+java -jar jparker-cli.jar enter -h
+java -jar jparker-cli.jar leave -h
+``` 
+
+Examples
+
+```shell
+java -jar jparker-cli.jar create "My New Parking Lot"
+java -jar jparker-cli.jar slot -l 1 -n 10 -cp "SEDAN"
+java -jar jparker-cli.jar enter -l 1 -cp "TWENTYKW"
+java -jar jparker-cli.jar leave -l 1 -n "XXXXXX"  # XXXXXX = whatever ticket number you received when entered
+``` 
+
+## Installation as a Java Client library
 
 To install the API client library to your local Maven repository, simply execute:
 
@@ -134,39 +167,6 @@ Authentication schemes defined for the API:
 ## Recommendation
 
 It's recommended to create an instance of `ApiClient` per thread in a multithreaded environment to avoid any potential issues.
-
-## Build and Run the CLI
-
-Build an executable jar with all dependencies
-
-```shell
-mvn clean compile assembly:single
-```
-
-Move and rename jar to current dir
-
-```shell
-mv target/jparker-cli-1.0.0-jar-with-dependencies.jar jparker-cli.jar
-```
-
-Show usage
-
-```shell
-java -jar jparker-cli.jar -h
-java -jar jparker-cli.jar create -h
-java -jar jparker-cli.jar slot -h
-java -jar jparker-cli.jar enter -h
-java -jar jparker-cli.jar leave -h
-``` 
-
-Examples
-
-```shell
-java -jar jparker-cli.jar create "My New Parking Lot"
-java -jar jparker-cli.jar slot -l 1 -n 10 -cp "SEDAN"
-java -jar jparker-cli.jar enter -l 1 -cp "TWENTYKW"
-java -jar jparker-cli.jar leave -l 1 -n "XXXXXX"  # XXXXXX = whatever ticket number you received when entered
-``` 
 
 ## Author
 
