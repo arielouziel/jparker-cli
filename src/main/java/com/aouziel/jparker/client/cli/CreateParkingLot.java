@@ -53,7 +53,7 @@ public class CreateParkingLot implements Runnable {
             ParkingLot parkingLot = new ParkingLot().name(name)
                     .pricingPolicy(pricingPolicy);
 
-            ParkingLot response = apiInstance.createParkingLotUsingPOST(parkingLot);
+            ParkingLot response = apiInstance.createParkingLot(parkingLot);
             System.out.println(response);
         } catch (ApiException e) {
             System.err.println(e.getResponseBody());

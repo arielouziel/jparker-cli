@@ -7,5 +7,5 @@ java -jar openapi-generator-cli.jar generate \
   --invoker-package com.aouziel.jparker.client.invoker \
   --group-id com.aouziel \
   --artifact-id jparker-cli \
-  --artifact-version 0.0.1-SNAPSHOT \
+  --artifact-version 1.0.0 \
   --skip-validate-spec

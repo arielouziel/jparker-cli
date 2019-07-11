@@ -6,7 +6,7 @@
     "title": "JParker REST API",
     "contact": {
       "name": "Ariel Ouziel",
-      "url": "www.arielouziel.com",
+      "url": "http://www.arielouziel.com",
       "email": "contact@arielouziel.com"
     },
     "license": {
@@ -29,7 +29,7 @@
           "parking-lot-controller"
         ],
         "summary": "View a list of all parking lots",
-        "operationId": "getAllParkingLotsUsingGET",
+        "operationId": "getAllParkingLots",
         "produces": [
           "*/*"
         ],
@@ -45,10 +45,10 @@
             }
           },
           "401": {
-            "description": "You are not authorized to view the resource"
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Accessing the resource you were trying to reach is forbidden"
+            "description": "Forbidden"
           },
           "404": {
             "description": "The resource you were trying to reach is not found"
@@ -61,7 +61,7 @@
           "parking-lot-controller"
         ],
         "summary": "Create a new parking lot",
-        "operationId": "createParkingLotUsingPOST",
+        "operationId": "createParkingLot",
         "consumes": [
           "application/json"
         ],
@@ -109,8 +109,8 @@
         "tags": [
           "parking-lot-controller"
         ],
-        "summary": "Get a parking lot by Id",
-        "operationId": "getParkingLotByIdUsingGET",
+        "summary": "Get a parking lot by id",
+        "operationId": "getParkingLotById",
         "produces": [
           "*/*"
         ],
@@ -126,7 +126,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successfully retrieved parking lot",
             "schema": {
               "originalRef": "ParkingLot",
               "$ref": "#/definitions/ParkingLot"
@@ -139,7 +139,45 @@
             "description": "Forbidden"
           },
           "404": {
-            "description": "Not Found"
+            "description": "The resource you were trying to reach is not found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Delete a parking",
+        "operationId": "deleteParkingLot",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "lotId",
+            "in": "path",
+            "description": "Parking lot id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted parking lot"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found"
           }
         },
         "deprecated": false
@@ -151,7 +189,7 @@
           "parking-lot-controller"
         ],
         "summary": "Put a car in a any free parking slot",
-        "operationId": "enterParkingLotUsingPOST",
+        "operationId": "enterParkingLot",
         "consumes": [
           "application/json"
         ],
@@ -218,7 +256,7 @@
           "parking-lot-controller"
         ],
         "summary": "Get a list of free slots in a parking lot",
-        "operationId": "listFreeParkingSlotsUsingGET",
+        "operationId": "listFreeParkingSlots",
         "produces": [
           "*/*"
         ],
@@ -259,7 +297,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successfully retrieved list",
             "schema": {
               "type": "array",
               "items": {
@@ -275,7 +313,7 @@
             "description": "Forbidden"
           },
           "404": {
-            "description": "Not Found"
+            "description": "The resource you were trying to reach is not found"
           }
         },
         "deprecated": false
@@ -285,7 +323,7 @@
           "parking-lot-controller"
         ],
         "summary": "Create a new slot in a parking lot",
-        "operationId": "createParkingSlotUsingPOST",
+        "operationId": "createParkingSlot",
         "consumes": [
           "application/json"
         ],
@@ -314,7 +352,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successfully added slot",
             "schema": {
               "originalRef": "ParkingSlot",
               "$ref": "#/definitions/ParkingSlot"
@@ -330,7 +368,55 @@
             "description": "Forbidden"
           },
           "404": {
-            "description": "Not Found"
+            "description": "The resource you were trying to reach is not found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/parking-lots/{lotId}/slots/{slotId}": {
+      "delete": {
+        "tags": [
+          "parking-lot-controller"
+        ],
+        "summary": "Remove a slot from a parking lot",
+        "operationId": "removeParkingSlot",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "lotId",
+            "in": "path",
+            "description": "ParkingLot id where to add the slot",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "slotId",
+            "in": "path",
+            "description": "Slot id to remove",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully removed slot"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found"
           }
         },
         "deprecated": false
@@ -342,7 +428,7 @@
           "parking-lot-controller"
         ],
         "summary": "Remove car from parking lot and bill the customer",
-        "operationId": "leaveParkingLotUsingPUT",
+        "operationId": "leaveParkingLot",
         "consumes": [
           "application/json"
         ],
@@ -421,6 +507,14 @@
               "type": "integer",
               "format": "int32",
               "description": "Hour price in smallest unit of currency"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pricingPolicyType": {
+              "type": "string",
+              "description": "Type of pricing policy"
             }
           },
           "title": "HourRatePlusFixedPricingPolicy",
@@ -447,6 +541,14 @@
               "type": "integer",
               "format": "int32",
               "description": "Hour price in smallest unit of currency"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "pricingPolicyType": {
+              "type": "string",
+              "description": "Type of pricing policy"
             }
           },
           "title": "HourRatePricingPolicy",
