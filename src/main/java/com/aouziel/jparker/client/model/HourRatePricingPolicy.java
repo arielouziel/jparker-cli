@@ -23,7 +23,7 @@ import java.util.Objects;
  * Details about hour rate pricing policy
  */
 @ApiModel(description = "Details about hour rate pricing policy")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-11T14:00:44.729+02:00[Europe/Brussels]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-11T20:35:36.218+02:00[Europe/Paris]")
 public class HourRatePricingPolicy extends PricingPolicy {
   public static final String SERIALIZED_NAME_CURRENCY_CODE = "currencyCode";
   @SerializedName(SERIALIZED_NAME_CURRENCY_CODE)
@@ -32,14 +32,6 @@ public class HourRatePricingPolicy extends PricingPolicy {
   public static final String SERIALIZED_NAME_HOUR_PRICE = "hourPrice";
   @SerializedName(SERIALIZED_NAME_HOUR_PRICE)
   private Integer hourPrice;
-
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Long id;
-
-  public static final String SERIALIZED_NAME_PRICING_POLICY_TYPE = "pricingPolicyType";
-  @SerializedName(SERIALIZED_NAME_PRICING_POLICY_TYPE)
-  private String pricingPolicyType;
 
   public HourRatePricingPolicy currencyCode(String currencyCode) {
     this.currencyCode = currencyCode;
@@ -77,42 +69,6 @@ public class HourRatePricingPolicy extends PricingPolicy {
     this.hourPrice = hourPrice;
   }
 
-  public HourRatePricingPolicy id(Long id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public HourRatePricingPolicy pricingPolicyType(String pricingPolicyType) {
-    this.pricingPolicyType = pricingPolicyType;
-    return this;
-  }
-
-   /**
-   * Type of pricing policy
-   * @return pricingPolicyType
-  **/
-  @ApiModelProperty(value = "Type of pricing policy")
-  public String getPricingPolicyType() {
-    return pricingPolicyType;
-  }
-
-  public void setPricingPolicyType(String pricingPolicyType) {
-    this.pricingPolicyType = pricingPolicyType;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -125,14 +81,12 @@ public class HourRatePricingPolicy extends PricingPolicy {
     HourRatePricingPolicy hourRatePricingPolicy = (HourRatePricingPolicy) o;
     return Objects.equals(this.currencyCode, hourRatePricingPolicy.currencyCode) &&
         Objects.equals(this.hourPrice, hourRatePricingPolicy.hourPrice) &&
-        Objects.equals(this.id, hourRatePricingPolicy.id) &&
-        Objects.equals(this.pricingPolicyType, hourRatePricingPolicy.pricingPolicyType) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(currencyCode, hourPrice, id, pricingPolicyType, super.hashCode());
+    return Objects.hash(currencyCode, hourPrice, super.hashCode());
   }
 
 
@@ -143,8 +97,6 @@ public class HourRatePricingPolicy extends PricingPolicy {
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    hourPrice: ").append(toIndentedString(hourPrice)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    pricingPolicyType: ").append(toIndentedString(pricingPolicyType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

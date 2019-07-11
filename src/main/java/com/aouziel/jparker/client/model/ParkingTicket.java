@@ -29,7 +29,7 @@ import org.threeten.bp.OffsetDateTime;
 /**
  * ParkingTicket
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-11T14:00:44.729+02:00[Europe/Brussels]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2019-07-11T20:35:36.218+02:00[Europe/Paris]")
 public class ParkingTicket {
   /**
    * The power type of the car using the slot
