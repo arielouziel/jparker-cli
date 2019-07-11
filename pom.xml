@@ -260,6 +260,12 @@
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <properties>
         <java.version>1.7</java.version>
@@ -275,6 +281,7 @@
         <javax-annotation-version>1.0</javax-annotation-version>
         <junit-version>4.12</junit-version>
         <picocli-version>3.9.6</picocli-version>
+        <assertj-version>3.12.2</assertj-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>

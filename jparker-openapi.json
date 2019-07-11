@@ -183,7 +183,7 @@
         "deprecated": false
       }
     },
-    "/api/v1/parking-lots/{lotId}/slot-uses": {
+    "/api/v1/parking-lots/{lotId}/tickets": {
       "post": {
         "tags": [
           "parking-lot-controller"
