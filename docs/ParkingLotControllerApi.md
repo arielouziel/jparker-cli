@@ -10,8 +10,8 @@ Method | HTTP request | Description
 [**enterParkingLot**](ParkingLotControllerApi.md#enterParkingLot) | **POST** /api/v1/parking-lots/{lotId}/slot-uses | Put a car in a any free parking slot
 [**getAllParkingLots**](ParkingLotControllerApi.md#getAllParkingLots) | **GET** /api/v1/parking-lots | View a list of all parking lots
 [**getParkingLotById**](ParkingLotControllerApi.md#getParkingLotById) | **GET** /api/v1/parking-lots/{lotId} | Get a parking lot by id
+[**getParkingSlots**](ParkingLotControllerApi.md#getParkingSlots) | **GET** /api/v1/parking-lots/{lotId}/slots | Get a list of free slots in a parking lot
 [**leaveParkingLot**](ParkingLotControllerApi.md#leaveParkingLot) | **PUT** /api/v1/parking-lots/{lotId}/tickets/{ticketNumber}/leave | Remove car from parking lot and bill the customer
-[**listFreeParkingSlots**](ParkingLotControllerApi.md#listFreeParkingSlots) | **GET** /api/v1/parking-lots/{lotId}/slots | Get a list of free slots in a parking lot
 [**removeParkingSlot**](ParkingLotControllerApi.md#removeParkingSlot) | **DELETE** /api/v1/parking-lots/{lotId}/slots/{slotId} | Remove a slot from a parking lot
 
 
@@ -398,6 +398,73 @@ No authorization required
 **403** | Forbidden |  -  |
 **404** | The resource you were trying to reach is not found |  -  |
 
+<a name="getParkingSlots"></a>
+# **getParkingSlots**
+> List&lt;ParkingSlot&gt; getParkingSlots(lotId, parkingSlotStatus, parkingSlotType)
+
+Get a list of free slots in a parking lot
+
+### Example
+```java
+// Import classes:
+import com.aouziel.jparker.client.invoker.ApiClient;
+import com.aouziel.jparker.client.invoker.ApiException;
+import com.aouziel.jparker.client.invoker.Configuration;
+import com.aouziel.jparker.client.invoker.models.*;
+import com.aouziel.jparker.client.api.ParkingLotControllerApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8080");
+
+    ParkingLotControllerApi apiInstance = new ParkingLotControllerApi(defaultClient);
+    Long lotId = 56L; // Long | ParkingLot id from which parking slots will be retrieved
+    String parkingSlotStatus = "parkingSlotStatus_example"; // String | Specify parking slot status to be used (free, occupied)
+    String parkingSlotType = "parkingSlotType_example"; // String | Specify parking slot type to be used (twentyKw, fiftyKw or sedan)
+    try {
+      List<ParkingSlot> result = apiInstance.getParkingSlots(lotId, parkingSlotStatus, parkingSlotType);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ParkingLotControllerApi#getParkingSlots");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lotId** | **Long**| ParkingLot id from which parking slots will be retrieved |
+ **parkingSlotStatus** | **String**| Specify parking slot status to be used (free, occupied) | [optional] [enum: free, occupied]
+ **parkingSlotType** | **String**| Specify parking slot type to be used (twentyKw, fiftyKw or sedan) | [optional] [enum: twentyKw, fiftyKw, sedan]
+
+### Return type
+
+[**List&lt;ParkingSlot&gt;**](ParkingSlot.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved list |  -  |
+**401** | Unauthorized |  -  |
+**403** | Forbidden |  -  |
+**404** | The resource you were trying to reach is not found |  -  |
+
 <a name="leaveParkingLot"></a>
 # **leaveParkingLot**
 > ParkingTicket leaveParkingLot(lotId, ticketNumber)
@@ -465,73 +532,6 @@ No authorization required
 **404** | Not Found |  -  |
 **409** | Somebody took the slot before you |  -  |
 **412** | Preconditions failed |  -  |
-
-<a name="listFreeParkingSlots"></a>
-# **listFreeParkingSlots**
-> List&lt;ParkingSlot&gt; listFreeParkingSlots(lotId, parkingSlotStatus, parkingSlotType)
-
-Get a list of free slots in a parking lot
-
-### Example
-```java
-// Import classes:
-import com.aouziel.jparker.client.invoker.ApiClient;
-import com.aouziel.jparker.client.invoker.ApiException;
-import com.aouziel.jparker.client.invoker.Configuration;
-import com.aouziel.jparker.client.invoker.models.*;
-import com.aouziel.jparker.client.api.ParkingLotControllerApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8080");
-
-    ParkingLotControllerApi apiInstance = new ParkingLotControllerApi(defaultClient);
-    Long lotId = 56L; // Long | ParkingLot id from which parking slots will be retrieved
-    String parkingSlotStatus = "parkingSlotStatus_example"; // String | Specify parking slot status to be used (free, occupied)
-    String parkingSlotType = "parkingSlotType_example"; // String | Specify parking slot type to be used (twentyKw, fiftyKw or sedan)
-    try {
-      List<ParkingSlot> result = apiInstance.listFreeParkingSlots(lotId, parkingSlotStatus, parkingSlotType);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling ParkingLotControllerApi#listFreeParkingSlots");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **lotId** | **Long**| ParkingLot id from which parking slots will be retrieved |
- **parkingSlotStatus** | **String**| Specify parking slot status to be used (free, occupied) | [optional] [enum: free, occupied]
- **parkingSlotType** | **String**| Specify parking slot type to be used (twentyKw, fiftyKw or sedan) | [optional] [enum: twentyKw, fiftyKw, sedan]
-
-### Return type
-
-[**List&lt;ParkingSlot&gt;**](ParkingSlot.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: */*
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successfully retrieved list |  -  |
-**401** | Unauthorized |  -  |
-**403** | Forbidden |  -  |
-**404** | The resource you were trying to reach is not found |  -  |
 
 <a name="removeParkingSlot"></a>
 # **removeParkingSlot**

@@ -256,7 +256,7 @@
           "parking-lot-controller"
         ],
         "summary": "Get a list of free slots in a parking lot",
-        "operationId": "listFreeParkingSlots",
+        "operationId": "getParkingSlots",
         "produces": [
           "*/*"
         ],
@@ -507,14 +507,6 @@
               "type": "integer",
               "format": "int32",
               "description": "Hour price in smallest unit of currency"
-            },
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "pricingPolicyType": {
-              "type": "string",
-              "description": "Type of pricing policy"
             }
           },
           "title": "HourRatePlusFixedPricingPolicy",
@@ -541,14 +533,6 @@
               "type": "integer",
               "format": "int32",
               "description": "Hour price in smallest unit of currency"
-            },
-            "id": {
-              "type": "integer",
-              "format": "int64"
-            },
-            "pricingPolicyType": {
-              "type": "string",
-              "description": "Type of pricing policy"
             }
           },
           "title": "HourRatePricingPolicy",

@@ -154,11 +154,11 @@ public class ParkingLotControllerApiTest {
      *          if the Api call fails
      */
     @Test
-    public void listFreeParkingSlotsTest() throws ApiException {
+    public void getParkingSlotsTest() throws ApiException {
         Long lotId = null;
         String parkingSlotStatus = null;
         String parkingSlotType = null;
-        List<ParkingSlot> response = api.listFreeParkingSlots(lotId, parkingSlotStatus, parkingSlotType);
+        List<ParkingSlot> response = api.getParkingSlots(lotId, parkingSlotStatus, parkingSlotType);
 
         // TODO: test validations
     }

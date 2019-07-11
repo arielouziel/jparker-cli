@@ -112,7 +112,7 @@ Class | Method | HTTP request | Description
 *ParkingLotControllerApi* | [**getAllParkingLots**](docs/ParkingLotControllerApi.md#getAllParkingLots) | **GET** /api/v1/parking-lots | View a list of all parking lots
 *ParkingLotControllerApi* | [**getParkingLotById**](docs/ParkingLotControllerApi.md#getParkingLotById) | **GET** /api/v1/parking-lots/{lotId} | Get a parking lot by id
 *ParkingLotControllerApi* | [**leaveParkingLot**](docs/ParkingLotControllerApi.md#leaveParkingLot) | **PUT** /api/v1/parking-lots/{lotId}/tickets/{ticketNumber}/leave | Remove car from parking lot and bill the customer
-*ParkingLotControllerApi* | [**listFreeParkingSlots**](docs/ParkingLotControllerApi.md#listFreeParkingSlots) | **GET** /api/v1/parking-lots/{lotId}/slots | Get a list of free slots in a parking lot
+*ParkingLotControllerApi* | [**getParkingSlots**](docs/ParkingLotControllerApi.md#getParkingSlots) | **GET** /api/v1/parking-lots/{lotId}/slots | Get a list of free slots in a parking lot
 *ParkingLotControllerApi* | [**removeParkingSlot**](docs/ParkingLotControllerApi.md#removeParkingSlot) | **DELETE** /api/v1/parking-lots/{lotId}/slots/{slotId} | Remove a slot from a parking lot
 
 

@@ -816,6 +816,144 @@ public class ParkingLotControllerApi {
         return localVarCall;
     }
     /**
+     * Build call for getParkingSlots
+     * @param lotId ParkingLot id from which parking slots will be retrieved (required)
+     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
+     * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successfully retrieved list </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The resource you were trying to reach is not found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getParkingSlotsCall(Long lotId, String parkingSlotStatus, String parkingSlotType, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = new Object();
+
+        // create path and map variables
+        String localVarPath = "/api/v1/parking-lots/{lotId}/slots"
+            .replaceAll("\\{" + "lotId" + "\\}", localVarApiClient.escapeString(lotId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        if (parkingSlotStatus != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("parkingSlotStatus", parkingSlotStatus));
+        }
+
+        if (parkingSlotType != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("parkingSlotType", parkingSlotType));
+        }
+
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+        final String[] localVarAccepts = {
+            "*/*"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+            
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        localVarHeaderParams.put("Content-Type", localVarContentType);
+
+        String[] localVarAuthNames = new String[] {  };
+        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getParkingSlotsValidateBeforeCall(Long lotId, String parkingSlotStatus, String parkingSlotType, final ApiCallback _callback) throws ApiException {
+        
+        // verify the required parameter 'lotId' is set
+        if (lotId == null) {
+            throw new ApiException("Missing the required parameter 'lotId' when calling getParkingSlots(Async)");
+        }
+        
+
+        okhttp3.Call localVarCall = getParkingSlotsCall(lotId, parkingSlotStatus, parkingSlotType, _callback);
+        return localVarCall;
+
+    }
+
+    /**
+     * Get a list of free slots in a parking lot
+     * 
+     * @param lotId ParkingLot id from which parking slots will be retrieved (required)
+     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
+     * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
+     * @return List&lt;ParkingSlot&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successfully retrieved list </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The resource you were trying to reach is not found </td><td>  -  </td></tr>
+     </table>
+     */
+    public List<ParkingSlot> getParkingSlots(Long lotId, String parkingSlotStatus, String parkingSlotType) throws ApiException {
+        ApiResponse<List<ParkingSlot>> localVarResp = getParkingSlotsWithHttpInfo(lotId, parkingSlotStatus, parkingSlotType);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Get a list of free slots in a parking lot
+     * 
+     * @param lotId ParkingLot id from which parking slots will be retrieved (required)
+     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
+     * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
+     * @return ApiResponse&lt;List&lt;ParkingSlot&gt;&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successfully retrieved list </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The resource you were trying to reach is not found </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<List<ParkingSlot>> getParkingSlotsWithHttpInfo(Long lotId, String parkingSlotStatus, String parkingSlotType) throws ApiException {
+        okhttp3.Call localVarCall = getParkingSlotsValidateBeforeCall(lotId, parkingSlotStatus, parkingSlotType, null);
+        Type localVarReturnType = new TypeToken<List<ParkingSlot>>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Get a list of free slots in a parking lot (asynchronously)
+     * 
+     * @param lotId ParkingLot id from which parking slots will be retrieved (required)
+     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
+     * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table summary="Response Details" border="1">
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td> Successfully retrieved list </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> The resource you were trying to reach is not found </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call getParkingSlotsAsync(Long lotId, String parkingSlotStatus, String parkingSlotType, final ApiCallback<List<ParkingSlot>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = getParkingSlotsValidateBeforeCall(lotId, parkingSlotStatus, parkingSlotType, _callback);
+        Type localVarReturnType = new TypeToken<List<ParkingSlot>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for leaveParkingLot
      * @param lotId ParkingLot id from which parking slot will be retrieved (required)
      * @param ticketNumber Ticket number provided when entered the parking lot (required)
@@ -956,144 +1094,6 @@ public class ParkingLotControllerApi {
 
         okhttp3.Call localVarCall = leaveParkingLotValidateBeforeCall(lotId, ticketNumber, _callback);
         Type localVarReturnType = new TypeToken<ParkingTicket>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
-    }
-    /**
-     * Build call for listFreeParkingSlots
-     * @param lotId ParkingLot id from which parking slots will be retrieved (required)
-     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
-     * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successfully retrieved list </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> The resource you were trying to reach is not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listFreeParkingSlotsCall(Long lotId, String parkingSlotStatus, String parkingSlotType, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = new Object();
-
-        // create path and map variables
-        String localVarPath = "/api/v1/parking-lots/{lotId}/slots"
-            .replaceAll("\\{" + "lotId" + "\\}", localVarApiClient.escapeString(lotId.toString()));
-
-        List<Pair> localVarQueryParams = new ArrayList<Pair>();
-        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
-        if (parkingSlotStatus != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("parkingSlotStatus", parkingSlotStatus));
-        }
-
-        if (parkingSlotType != null) {
-            localVarQueryParams.addAll(localVarApiClient.parameterToPair("parkingSlotType", parkingSlotType));
-        }
-
-        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
-        final String[] localVarAccepts = {
-            "*/*"
-        };
-        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
-        if (localVarAccept != null) {
-            localVarHeaderParams.put("Accept", localVarAccept);
-        }
-
-        final String[] localVarContentTypes = {
-            
-        };
-        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        localVarHeaderParams.put("Content-Type", localVarContentType);
-
-        String[] localVarAuthNames = new String[] {  };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, _callback);
-    }
-
-    @SuppressWarnings("rawtypes")
-    private okhttp3.Call listFreeParkingSlotsValidateBeforeCall(Long lotId, String parkingSlotStatus, String parkingSlotType, final ApiCallback _callback) throws ApiException {
-        
-        // verify the required parameter 'lotId' is set
-        if (lotId == null) {
-            throw new ApiException("Missing the required parameter 'lotId' when calling listFreeParkingSlots(Async)");
-        }
-        
-
-        okhttp3.Call localVarCall = listFreeParkingSlotsCall(lotId, parkingSlotStatus, parkingSlotType, _callback);
-        return localVarCall;
-
-    }
-
-    /**
-     * Get a list of free slots in a parking lot
-     * 
-     * @param lotId ParkingLot id from which parking slots will be retrieved (required)
-     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
-     * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
-     * @return List&lt;ParkingSlot&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successfully retrieved list </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> The resource you were trying to reach is not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<ParkingSlot> listFreeParkingSlots(Long lotId, String parkingSlotStatus, String parkingSlotType) throws ApiException {
-        ApiResponse<List<ParkingSlot>> localVarResp = listFreeParkingSlotsWithHttpInfo(lotId, parkingSlotStatus, parkingSlotType);
-        return localVarResp.getData();
-    }
-
-    /**
-     * Get a list of free slots in a parking lot
-     * 
-     * @param lotId ParkingLot id from which parking slots will be retrieved (required)
-     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
-     * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
-     * @return ApiResponse&lt;List&lt;ParkingSlot&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successfully retrieved list </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> The resource you were trying to reach is not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<ParkingSlot>> listFreeParkingSlotsWithHttpInfo(Long lotId, String parkingSlotStatus, String parkingSlotType) throws ApiException {
-        okhttp3.Call localVarCall = listFreeParkingSlotsValidateBeforeCall(lotId, parkingSlotStatus, parkingSlotType, null);
-        Type localVarReturnType = new TypeToken<List<ParkingSlot>>(){}.getType();
-        return localVarApiClient.execute(localVarCall, localVarReturnType);
-    }
-
-    /**
-     * Get a list of free slots in a parking lot (asynchronously)
-     * 
-     * @param lotId ParkingLot id from which parking slots will be retrieved (required)
-     * @param parkingSlotStatus Specify parking slot status to be used (free, occupied) (optional)
-     * @param parkingSlotType Specify parking slot type to be used (twentyKw, fiftyKw or sedan) (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table summary="Response Details" border="1">
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Successfully retrieved list </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> The resource you were trying to reach is not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listFreeParkingSlotsAsync(Long lotId, String parkingSlotStatus, String parkingSlotType, final ApiCallback<List<ParkingSlot>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = listFreeParkingSlotsValidateBeforeCall(lotId, parkingSlotStatus, parkingSlotType, _callback);
-        Type localVarReturnType = new TypeToken<List<ParkingSlot>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
