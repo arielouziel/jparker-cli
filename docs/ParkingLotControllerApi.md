@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**createParkingLot**](ParkingLotControllerApi.md#createParkingLot) | **POST** /api/v1/parking-lots | Create a new parking lot
 [**createParkingSlot**](ParkingLotControllerApi.md#createParkingSlot) | **POST** /api/v1/parking-lots/{lotId}/slots | Create a new slot in a parking lot
 [**deleteParkingLot**](ParkingLotControllerApi.md#deleteParkingLot) | **DELETE** /api/v1/parking-lots/{lotId} | Delete a parking
-[**enterParkingLot**](ParkingLotControllerApi.md#enterParkingLot) | **POST** /api/v1/parking-lots/{lotId}/slot-uses | Put a car in a any free parking slot
+[**enterParkingLot**](ParkingLotControllerApi.md#enterParkingLot) | **POST** /api/v1/parking-lots/{lotId}/tickets | Put a car in a any free parking slot
 [**getAllParkingLots**](ParkingLotControllerApi.md#getAllParkingLots) | **GET** /api/v1/parking-lots | View a list of all parking lots
 [**getParkingLotById**](ParkingLotControllerApi.md#getParkingLotById) | **GET** /api/v1/parking-lots/{lotId} | Get a parking lot by id
 [**leaveParkingLot**](ParkingLotControllerApi.md#leaveParkingLot) | **PUT** /api/v1/parking-lots/{lotId}/tickets/{ticketNumber}/leave | Remove car from parking lot and bill the customer

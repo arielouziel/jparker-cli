@@ -461,7 +461,7 @@ public class ParkingLotControllerApi {
         Object localVarPostBody = carPowerType;
 
         // create path and map variables
-        String localVarPath = "/api/v1/parking-lots/{lotId}/slot-uses"
+        String localVarPath = "/api/v1/parking-lots/{lotId}/tickets"
             .replaceAll("\\{" + "lotId" + "\\}", localVarApiClient.escapeString(lotId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
