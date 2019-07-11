@@ -41,7 +41,7 @@ java -jar jparker-cli.jar leave -h
 Examples
 
 ```shell
-java -jar jparker-cli.jar create "My New Parking Lot"
+java -jar jparker-cli.jar create -n "My New Parking Lot" -t HOURRATEPRICINGPOLICY -r 100
 java -jar jparker-cli.jar slot -l 1 -n 10 -cp "SEDAN"
 java -jar jparker-cli.jar enter -l 1 -cp "TWENTYKW"
 java -jar jparker-cli.jar leave -l 1 -n "XXXXXX"  # XXXXXX = whatever ticket number you received when entered
