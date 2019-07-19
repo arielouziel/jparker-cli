@@ -23,3 +23,17 @@
 #!docs/README.md
 
 .gitignore
+build.gradle
+build.sbt
+gradle-wrapper.jar
+gradle-wrapper.properties
+gradle.properties
+gradlew
+gradlew.bat
+HourRatePlusFixedPricingPolicy1.java
+HourRatePlusFixedPricingPolicy1.md
+HourRatePlusFixedPricingPolicy1Test.java
+HourRatePricingPolicy1.java
+HourRatePricingPolicy1.md
+HourRatePricingPolicy1Test.java
+settings.gradle

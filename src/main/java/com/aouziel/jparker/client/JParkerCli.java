@@ -9,6 +9,7 @@ public class JParkerCli {
         try {
             commandLine.parseWithHandler(new CommandLine.RunLast(), args);
         } catch (CommandLine.PicocliException exc) {
+            exc.printStackTrace();
             commandLine.usage(System.err);
         }
 
